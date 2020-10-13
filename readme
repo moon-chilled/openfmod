@@ -1,0 +1,9 @@
+To use with a game:
+- Grab fsb-extract-dumb (https://github.com/moon-chilled/fsb-extract-dumb)
+- run fsb-extract-dumb file.bank
+  generates a file like file.fsb
+- Grab python-fsb5 (https://github.com/HearthSim/python-fsb5)
+  python3 extract.py file.fsb -o file.banko
+  * (Don't use pypy, it's slower.)
+- so:
+  for i in *.bank; do fsb-extract-dumb "$i"; fsb5-extract "${i/bank/fsb}" -o "${i}o"; done

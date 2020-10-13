@@ -1,2 +1,8 @@
 *.o
 *.so
+
+.*.swp
+.*.swo
+.*.swn
+.*.swm
+.*.swl

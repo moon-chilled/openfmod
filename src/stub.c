@@ -1,20 +1,9 @@
 #include <stdio.h>
 
-#include "fmod.h"
-
-#define STUB printf("Warning: function '%s' has been stubbed and is nonoperational.\n", __func__); return FMOD_OK
-#define DSTUB printf("Warning: deprecated function '%s' has been stubbed and is nonoperational.\n", __func__); return FMOD_OK
-#define BSTUB printf("Warning: function '%s' has been stubbed and is nonoperational.\n", __func__); return 1
-
-FMOD_RESULT FMOD_Studio_System_GetVCA(FMOD_STUDIO_SYSTEM *system, const char *path, FMOD_STUDIO_VCA **vca) {
-	STUB;
-}
+#include "openfmod.h"
+#include "openfmod-internal.h"
 
 FMOD_RESULT FMOD_System_CreateReverb3D(FMOD_SYSTEM *system, FMOD_REVERB3D **reverb) {
-	STUB;
-}
-
-FMOD_RESULT FMOD_Studio_EventDescription_Is3D(FMOD_STUDIO_EVENTDESCRIPTION *eventdescription, FMOD_BOOL *is3d) {
 	STUB;
 }
 
@@ -91,14 +80,6 @@ FMOD_RESULT FMOD_System_PlayDSP(FMOD_SYSTEM *system, FMOD_DSP *dsp, FMOD_CHANNEL
 }
 
 FMOD_RESULT FMOD_Sound_ReadData(FMOD_SOUND *sound, void *buffer, unsigned int length, unsigned int *read) {
-	STUB;
-}
-
-FMOD_RESULT FMOD_Studio_Bank_LoadSampleData(FMOD_STUDIO_BANK *bank) {
-	STUB;
-}
-
-FMOD_RESULT FMOD_Studio_EventDescription_LoadSampleData(FMOD_STUDIO_EVENTDESCRIPTION *eventdescription) {
 	STUB;
 }
 
@@ -278,10 +259,6 @@ FMOD_RESULT FMOD_ChannelGroup_GetPaused (FMOD_CHANNELGROUP *channelgroup, FMOD_B
 	STUB;
 }
 
-FMOD_RESULT FMOD_Studio_Bus_GetPaused(FMOD_STUDIO_BUS *bus, FMOD_BOOL *paused) {
-	STUB;
-}
-
 FMOD_RESULT FMOD_Studio_CommandReplay_GetPaused(FMOD_STUDIO_COMMANDREPLAY *replay, FMOD_BOOL *paused) {
 	STUB;
 }
@@ -291,10 +268,6 @@ FMOD_RESULT FMOD_Studio_EventInstance_SetPaused(FMOD_STUDIO_EVENTINSTANCE *event
 }
 
 FMOD_RESULT FMOD_ChannelGroup_SetPaused (FMOD_CHANNELGROUP *channelgroup, FMOD_BOOL paused) {
-	STUB;
-}
-
-FMOD_RESULT FMOD_Studio_Bus_SetPaused(FMOD_STUDIO_BUS *bus, FMOD_BOOL paused) {
 	STUB;
 }
 
@@ -386,10 +359,6 @@ FMOD_RESULT FMOD_ChannelGroup_Set3DMinMaxDistance (FMOD_CHANNELGROUP *channelgro
 	STUB;
 }
 
-FMOD_RESULT FMOD_Studio_EventDescription_CreateInstance(FMOD_STUDIO_EVENTDESCRIPTION *eventdescription, FMOD_STUDIO_EVENTINSTANCE **instance) {
-	STUB;
-}
-
 FMOD_RESULT FMOD_Sound_GetMode (FMOD_SOUND *sound, FMOD_MODE *mode) {
 	STUB;
 }
@@ -466,10 +435,6 @@ FMOD_RESULT FMOD_System_GetOutputHandle (FMOD_SYSTEM *system, void **handle) {
 	STUB;
 }
 
-FMOD_RESULT FMOD_Studio_System_LoadBankFile(FMOD_STUDIO_SYSTEM *system, const char *filename, FMOD_STUDIO_LOAD_BANK_FLAGS flags, FMOD_STUDIO_BANK **bank) {
-	STUB;
-}
-
 FMOD_RESULT FMOD_Sound_GetName (FMOD_SOUND *sound, char *name, int namelen) {
 	STUB;
 }
@@ -498,10 +463,6 @@ FMOD_RESULT FMOD_Sound_SetMusicChannelVolume (FMOD_SOUND *sound, int channel, fl
 	STUB;
 }
 
-FMOD_RESULT FMOD_Studio_VCA_GetVolume(FMOD_STUDIO_VCA *vca, float *volume, float *finalvolume) {
-	STUB;
-}
-
 FMOD_RESULT FMOD_Studio_EventInstance_GetVolume(FMOD_STUDIO_EVENTINSTANCE *eventinstance, float *volume, float *finalvolume) {
 	STUB;
 }
@@ -515,10 +476,6 @@ FMOD_RESULT FMOD_ChannelGroup_GetVolume (FMOD_CHANNELGROUP *channelgroup, float 
 }
 
 FMOD_RESULT FMOD_Studio_Bus_GetVolume(FMOD_STUDIO_BUS *bus, float *volume, float *finalvolume) {
-	STUB;
-}
-
-FMOD_RESULT FMOD_Studio_VCA_SetVolume(FMOD_STUDIO_VCA *vca, float volume) {
 	STUB;
 }
 
@@ -574,10 +531,6 @@ FMOD_RESULT FMOD_Sound_Release (FMOD_SOUND *sound) {
 	STUB;
 }
 
-FMOD_RESULT FMOD_Studio_EventInstance_Release(FMOD_STUDIO_EVENTINSTANCE *eventinstance) {
-	STUB;
-}
-
 FMOD_RESULT FMOD_System_Release (FMOD_SYSTEM *system) {
 	STUB;
 }
@@ -610,15 +563,7 @@ FMOD_RESULT FMOD_System_Update (FMOD_SYSTEM *system) {
 	STUB;
 }
 
-FMOD_RESULT FMOD_Studio_System_Update(FMOD_STUDIO_SYSTEM *system) {
-	STUB;
-}
-
 FMOD_RESULT FMOD_System_Create (FMOD_SYSTEM **system) {
-	STUB;
-}
-
-FMOD_RESULT FMOD_Studio_System_Create(FMOD_STUDIO_SYSTEM **system, unsigned int headerversion) {
 	STUB;
 }
 
@@ -722,10 +667,6 @@ FMOD_RESULT FMOD_Debug_Initialize (FMOD_DEBUG_FLAGS flags, FMOD_DEBUG_MODE mode,
 	STUB;
 }
 
-FMOD_RESULT FMOD_Studio_System_Initialize(FMOD_STUDIO_SYSTEM *system, int maxchannels, FMOD_STUDIO_INITFLAGS studioflags, FMOD_INITFLAGS flags, void *extradriverdata) {
-	STUB;
-}
-
 FMOD_RESULT FMOD_Memory_Initialize (void *poolmem, int poollen, FMOD_MEMORY_ALLOC_CALLBACK useralloc, FMOD_MEMORY_REALLOC_CALLBACK userrealloc, FMOD_MEMORY_FREE_CALLBACK userfree, FMOD_MEMORY_TYPE memtypeflags) {
 	STUB;
 }
@@ -811,13 +752,6 @@ FMOD_RESULT FMOD_Studio_VCA_GetPath(FMOD_STUDIO_VCA *vca, char *path, int size, 
 }
 
 FMOD_RESULT FMOD_Studio_Bank_GetPath(FMOD_STUDIO_BANK *bank, char *path, int size, int *retrieved) {
-	STUB;
-}
-
-FMOD_RESULT FMOD_Studio_EventDescription_GetPath(FMOD_STUDIO_EVENTDESCRIPTION *eventdescription, char *path, int size, int *retrieved) {
-	// needed for mvp celeste to work
-	path = "\0";
-	*retrieved = 1;
 	STUB;
 }
 
@@ -1093,10 +1027,6 @@ FMOD_RESULT FMOD_Geometry_SetPosition (FMOD_GEOMETRY *geometry, const FMOD_VECTO
 	STUB;
 }
 
-FMOD_RESULT FMOD_Studio_EventInstance_GetDescription(FMOD_STUDIO_EVENTINSTANCE *eventinstance, FMOD_STUDIO_EVENTDESCRIPTION **description) {
-	STUB;
-}
-
 FMOD_RESULT FMOD_Studio_CommandReplay_GetCommandInfo(FMOD_STUDIO_COMMANDREPLAY *replay, int commandindex, FMOD_STUDIO_COMMAND_INFO *info) {
 	STUB;
 }
@@ -1146,10 +1076,6 @@ FMOD_RESULT FMOD_ChannelGroup_SetVolumeRamp (FMOD_CHANNELGROUP *channelgroup, FM
 }
 
 FMOD_RESULT FMOD_ChannelGroup_SetFadePointRamp (FMOD_CHANNELGROUP *channelgroup, unsigned long long dspclock, float volume) {
-	STUB;
-}
-
-FMOD_RESULT FMOD_Studio_EventInstance_Stop(FMOD_STUDIO_EVENTINSTANCE *eventinstance, FMOD_STUDIO_STOP_MODE mode) {
 	STUB;
 }
 
@@ -1345,10 +1271,6 @@ FMOD_RESULT FMOD_Studio_System_GetListenerAttributes(FMOD_STUDIO_SYSTEM *system,
 	STUB;
 }
 
-FMOD_RESULT FMOD_Studio_System_SetListenerAttributes(FMOD_STUDIO_SYSTEM *system, int index, const FMOD_3D_ATTRIBUTES *attributes, const FMOD_VECTOR *attenuationposition) {
-	STUB;
-}
-
 FMOD_RESULT FMOD_Sound_GetNumTags (FMOD_SOUND *sound, int *numtags, int *numtagsupdated) {
 	STUB;
 }
@@ -1530,10 +1452,6 @@ FMOD_RESULT FMOD_DSP_GetNumOutputs (FMOD_DSP *dsp, int *numoutputs) {
 	STUB;
 }
 
-FMOD_RESULT FMOD_Studio_System_GetBus(FMOD_STUDIO_SYSTEM *system, const char *pathOrID, FMOD_STUDIO_BUS **bus) {
-	STUB;
-}
-
 FMOD_RESULT FMOD_System_GetSoftwareFormat (FMOD_SYSTEM *system, int *samplerate, FMOD_SPEAKERMODE *speakermode, int *numrawspeakers) {
 	STUB;
 }
@@ -1610,10 +1528,6 @@ FMOD_RESULT FMOD_Sound_GetSubSoundParent (FMOD_SOUND *sound, FMOD_SOUND **parent
 	STUB;
 }
 
-FMOD_RESULT FMOD_Studio_System_GetEvent(FMOD_STUDIO_SYSTEM *system, const char *pathOrID, FMOD_STUDIO_EVENTDESCRIPTION **event) {
-	STUB;
-}
-
 FMOD_RESULT FMOD_Sound_AddSyncPoint (FMOD_SOUND *sound, unsigned int offset, FMOD_TIMEUNIT offsettype, const char *name, FMOD_SYNCPOINT **point) {
 	STUB;
 }
@@ -1678,15 +1592,7 @@ FMOD_RESULT FMOD_Studio_EventDescription_GetUserPropertyCount(FMOD_STUDIO_EVENTD
 	STUB;
 }
 
-FMOD_RESULT FMOD_Studio_EventDescription_IsOneshot(FMOD_STUDIO_EVENTDESCRIPTION *eventdescription, FMOD_BOOL *oneshot) {
-	STUB;
-}
-
 FMOD_RESULT FMOD_Studio_EventDescription_IsSnapshot(FMOD_STUDIO_EVENTDESCRIPTION *eventdescription, FMOD_BOOL *snapshot) {
-	STUB;
-}
-
-FMOD_RESULT FMOD_Studio_EventInstance_Start(FMOD_STUDIO_EVENTINSTANCE *eventinstance) {
 	STUB;
 }
 
@@ -1896,13 +1802,5 @@ FMOD_RESULT FMOD_System_GetNetworkProxy (FMOD_SYSTEM *system, char *proxy, int p
 
 FMOD_RESULT FMOD_System_SetNetworkProxy (FMOD_SYSTEM *system, const char *proxy) {
 	STUB;
-}
-
-FMOD_RESULT FMOD_Studio_System_GetLowLevelSystem(FMOD_STUDIO_SYSTEM *system, FMOD_SYSTEM **lowLevelSystem) {
-	DSTUB;
-}
-
-FMOD_RESULT FMOD_Studio_EventInstance_SetParameterValue(FMOD_STUDIO_EVENTINSTANCE *eventinstance, const char *name, float value) {
-	DSTUB;
 }
 
