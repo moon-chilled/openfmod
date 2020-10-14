@@ -1,4 +1,4 @@
-CFLAGS := -fPIC -Iinclude
+CFLAGS := -fPIC -Iinclude -isystem /usr/local/include
 LDFLAGS := /usr/local/lib/libgorilla.a -L/usr/local/lib/ -lopenal
 CCLD ?= $(CC)
 
