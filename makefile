@@ -1,8 +1,8 @@
-CFLAGS := -fPIC -Iinclude -isystem /usr/local/include
-LDFLAGS := /usr/local/lib/libgorilla.a -L/usr/local/lib/ -lopenal
+CFLAGS := -fPIC -Iinclude -isystem /usr/local/include -Wall -Wextra -Wno-unused-parameter
+LDFLAGS := /usr/local/lib/libgorilla.a -L/usr/local/lib/ -lopenal -ljansson
 CCLD ?= $(CC)
 
-FMOD_OBJ := src/stub.o src/fmod-studio.o
+FMOD_OBJ := src/stub.o src/fmod-studio.o src/fsb-file.o src/maps.o
 
 default: libfmod.so
 
