@@ -164,6 +164,7 @@ gotdir:;
 		if (!try_loadevent(system, *bank, json_array_get(ev, i))) goto fail;
 	}
 
+	json_decref(json);
 	return FMOD_OK;
 
 fail:
