@@ -63,11 +63,6 @@ FMOD_RESULT FMOD_Studio_Bus_SetPaused(FMOD_STUDIO_BUS *bus, FMOD_BOOL paused) {
 }
 
 FMOD_RESULT FMOD_Studio_EventDescription_GetPath(FMOD_STUDIO_EVENTDESCRIPTION *evd, char *path, int size, int *retrieved) {
-	if (path && size) *path = '\0';
-	*retrieved = 1;
-	return FMOD_OK;
-	/*
-	log("have %d/%p/%p", size, evd, evd ? evd->path : NULL);
 	if (size < 0 || !evd || !evd->path) return FMOD_ERR_INVALID_PARAM;
 
 	// strlcpy doesn't include nul, but *retrieved does
@@ -76,7 +71,6 @@ FMOD_RESULT FMOD_Studio_EventDescription_GetPath(FMOD_STUDIO_EVENTDESCRIPTION *e
 	if (*retrieved > size) return FMOD_ERR_TRUNCATED;
 
 	return FMOD_OK;
-	*/
 }
 
 FMOD_RESULT FMOD_Studio_EventDescription_Is3D(FMOD_STUDIO_EVENTDESCRIPTION *eventdescription, FMOD_BOOL *is3d) {
@@ -87,8 +81,9 @@ FMOD_RESULT FMOD_Studio_EventDescription_IsOneshot(FMOD_STUDIO_EVENTDESCRIPTION 
 	FSTUB();
 }
 
-FMOD_RESULT FMOD_Studio_EventInstance_GetDescription(FMOD_STUDIO_EVENTINSTANCE *eventinstance, FMOD_STUDIO_EVENTDESCRIPTION **description) {
-	FSTUB();
+FMOD_RESULT FMOD_Studio_EventInstance_GetDescription(FMOD_STUDIO_EVENTINSTANCE *evi, FMOD_STUDIO_EVENTDESCRIPTION **evd) {
+	*evd = evi->evd;
+	return FMOD_OK;
 }
 
 FMOD_RESULT FMOD_Studio_System_Release(FMOD_STUDIO_SYSTEM *system) {

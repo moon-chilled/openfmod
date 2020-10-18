@@ -45,6 +45,7 @@ struct FMOD_STUDIO_EVENTDESCRIPTION {
 
 struct FMOD_STUDIO_EVENTINSTANCE {
 	FMOD_STUDIO_SYSTEM *sys;
+	FMOD_STUDIO_EVENTDESCRIPTION *evd;
 
 	bool playing;
 	FMOD_SOUND *snd; //just pick one for now...

@@ -187,6 +187,7 @@ FMOD_RESULT FMOD_Studio_EventDescription_CreateInstance(FMOD_STUDIO_EVENTDESCRIP
 	*evi = malloc(sizeof(FMOD_STUDIO_EVENTINSTANCE));
 	(**evi).playing = false;
 	(**evi).sys = evd->sys;
+	(**evi).evd = evd;
 
 	if (!evd->sounds) return FMOD_ERR_INVALID_PARAM;
 
