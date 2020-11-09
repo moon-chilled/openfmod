@@ -58,7 +58,7 @@ static bool ensure_sound_loaded(FMOD_STUDIO_SYSTEM *sys, FMOD_SOUND *snd) {
 		snd->handle = gau_create_handle_sound(sys->ga.mixer, sound, NULL, NULL, NULL);
 	}
 
-	return snd->handle;
+	return snd->is_loaded = snd->handle;
 }
 
 static bool try_loadevent(FMOD_STUDIO_SYSTEM *sys, FMOD_STUDIO_BANK *bank, json_t *json) {
