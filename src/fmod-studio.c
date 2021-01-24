@@ -1,7 +1,7 @@
+#include <stdatomic.h>
+
 #include "openfmod.h"
 #include "openfmod-internal.h"
-
-FILE *logfp = NULL;
 
 // just initialize right here
 // note that our version *is* threadsafe, unlike upstream's
@@ -15,6 +15,14 @@ FMOD_RESULT FMOD_Studio_System_Create(FMOD_STUDIO_SYSTEM **system, unsigned int 
 	ret->ga.stream_mgr = gau_manager_stream_manager(ret->ga.mgr);
 
 	*system = ret;
+	return FMOD_OK;
+}
+
+FMOD_RESULT FMOD_Studio_System_Release(FMOD_STUDIO_SYSTEM *system) {
+	warn("FMOD_Studio_System_Release is stubbed");
+	FMOD_System_Release(system->system);
+	fclose(logfp);
+	logfp = NULL;
 	return FMOD_OK;
 }
 
@@ -33,7 +41,9 @@ FMOD_RESULT FMOD_Studio_Bank_LoadSampleData(FMOD_STUDIO_BANK *bank) {
 
 FMOD_RESULT FMOD_Studio_System_GetLowLevelSystem(FMOD_STUDIO_SYSTEM *system, FMOD_SYSTEM **lowLevelSystem) {
 	DEPRECATED();
-	FSTUB();
+	if (!system || !lowLevelSystem) return FMOD_ERR_INVALID_PARAM;
+	*lowLevelSystem = system->system;
+	return FMOD_OK;
 }
 
 FMOD_RESULT FMOD_Studio_EventInstance_SetParameterValue(FMOD_STUDIO_EVENTINSTANCE *eventinstance, const char *name, float value) {
@@ -70,13 +80,6 @@ FMOD_RESULT FMOD_Studio_EventDescription_IsOneshot(FMOD_STUDIO_EVENTDESCRIPTION 
 
 FMOD_RESULT FMOD_Studio_EventInstance_GetDescription(FMOD_STUDIO_EVENTINSTANCE *evi, FMOD_STUDIO_EVENTDESCRIPTION **evd) {
 	*evd = evi->evd;
-	return FMOD_OK;
-}
-
-FMOD_RESULT FMOD_Studio_System_Release(FMOD_STUDIO_SYSTEM *system) {
-	warn("FMOD_Studio_System_Release is stubbed");
-	fclose(logfp);
-	logfp = NULL;
 	return FMOD_OK;
 }
 

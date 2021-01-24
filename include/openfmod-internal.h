@@ -2,7 +2,6 @@
 #define OPENFMOD_INTERNAL_H
 
 #include <stdio.h>
-#include <stdatomic.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -11,34 +10,35 @@
 
 #include <gorilla/gau.h>
 
-typedef int8_t s8;
-typedef uint8_t u8;
-typedef int32_t s32;
-typedef uint32_t u32;
-typedef int64_t s64;
-typedef uint64_t u64;
+typedef char c1;
+typedef const char Cc1;
+typedef int8_t s1;
+typedef int32_t s4;
+typedef int64_t s8;
+typedef uint8_t u1;
+typedef uint32_t u4;
+typedef uint64_t u8;
 
 typedef size_t usz;
 typedef ptrdiff_t ssz;
 
-extern atomic_bool is_gorilla_initialized;
 extern FILE *logfp;
 
 typedef struct {
-	const char *key;
+	Cc1 *key;
 	FMOD_GUID val;
 } *MapPathToGuid;
 
 struct FMOD_SOUND {
 	bool is_mem, is_loaded;
 	GaHandle *handle;
-	const char *fpath;
+	Cc1 *fpath;
 };
 
 struct FMOD_STUDIO_EVENTDESCRIPTION {
 	FMOD_STUDIO_SYSTEM *sys;
 
-	const char *path;
+	Cc1 *path;
 
 	FMOD_SOUND **sounds;
 };
@@ -60,10 +60,11 @@ typedef struct {
 void guid_evdescr_insert(MapGuidToEventDescr *map, FMOD_GUID *key, FMOD_STUDIO_EVENTDESCRIPTION *val);
 FMOD_STUDIO_EVENTDESCRIPTION **guid_evdescr_get(MapGuidToEventDescr *map, FMOD_GUID *key);
 
-void path_guid_insert(MapPathToGuid *map, const char *key, FMOD_GUID *guid);
-FMOD_GUID *path_guid_get(MapPathToGuid *map, const char *key);
+void path_guid_insert(MapPathToGuid *map, Cc1 *key, FMOD_GUID *guid);
+FMOD_GUID *path_guid_get(MapPathToGuid *map, Cc1 *key);
 
 struct FMOD_STUDIO_SYSTEM {
+	FMOD_SYSTEM *system;
 	struct {
 		GauManager *mgr;
 		GaMixer *mixer;
@@ -76,23 +77,17 @@ struct FMOD_STUDIO_SYSTEM {
 
 struct FMOD_STUDIO_BANK {
 	FMOD_STUDIO_SYSTEM *sys;
-	char *dir;
-	char *basename; // excludes '.bank' suffix if present
+	c1 *dir;
+	c1 *basename; // excludes '.bank' suffix if present
 
 	MapGuidToEventDescr sounds;
 };
 
-#define dolog(level, ...) do { \
-	if (!logfp) logfp = fopen("openfmod-log.txt", "a"); \
-	fprintf(logfp, "%s:%d: ", __FILE__, __LINE__); \
-	fprintf(logfp, __VA_ARGS__); \
-	fputc('\n', logfp); \
-	fflush(logfp); \
-} while (0)
+FMOD_RESULT FMOD_log(FMOD_DEBUG_FLAGS level, Cc1 *file, int line, Cc1 *function, Cc1 *string, ...);
 
-#define trace(...) dolog(0, __VA_ARGS__)
-#define log(...) dolog(1, __VA_ARGS__)
-#define warn(...) dolog(2, __VA_ARGS__)
+#define trace(...) FMOD_log(FMOD_DEBUG_LEVEL_LOG, __FILE__, __LINE__, __func__, __VA_ARGS__)
+#define log(...) FMOD_log(FMOD_DEBUG_LEVEL_LOG, __FILE__, __LINE__, __func__, __VA_ARGS__)
+#define warn(...) FMOD_log(FMOD_DEBUG_LEVEL_WARNING, __FILE__, __LINE__, __func__, __VA_ARGS__)
 
 #define DEPRECATED() warn("Warning: function '%s' is deprecated.", __func__)
 #define FSTUB() do { \
@@ -100,7 +95,7 @@ struct FMOD_STUDIO_BANK {
 	return FMOD_OK; \
 } while (0)
 #define CSTUB(...) do { \
-	char buf[512]; \
+	c1 buf[512]; \
 	snprintf(buf, sizeof(buf), __VA_ARGS__); \
 	warn("Warning: functionality '%s' of function '%s' has been stubbed and is nonoperational.", buf, __func__); \
 	return FMOD_OK; \
@@ -189,7 +184,7 @@ static inline usz alen(void *arr) { return arr ? ((usz*)arr)[-1] : 0; }
 #define aremove(arr, i) _aremove(arr, sizeof(*arr), i)
 
 static inline void _aremove(void *arr_, usz elemsz, usz elemno) {
-	char *arr = arr_;
+	c1 *arr = arr_;
 	assert(elemno < alen(arr));
 	memcpy(arr + elemno*elemsz, arr + (elemno+1)*elemsz, (alen(arr)-elemno-1)*elemsz);
 	((usz*)arr)[-1]--;

@@ -531,10 +531,6 @@ FMOD_RESULT FMOD_Sound_Release (FMOD_SOUND *sound) {
 	FSTUB();
 }
 
-FMOD_RESULT FMOD_System_Release (FMOD_SYSTEM *system) {
-	FSTUB();
-}
-
 FMOD_RESULT FMOD_SoundGroup_Release (FMOD_SOUNDGROUP *soundgroup) {
 	FSTUB();
 }

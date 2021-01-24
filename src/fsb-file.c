@@ -6,14 +6,14 @@
 #include "openfmod-internal.h"
 
 static inline bool ishex(char c) { return (('0' <= c) && (c <= '9')) || (('a' <= c) && (c <= 'f')) || (('A' <= c) && (c <= 'F')); }
-static inline u8 parsehex(char c) {
+static inline u1 parsehex(char c) {
 	if (('0' <= c) && (c <= '9'))      return      c - '0';
 	else if (('a' <= c) && (c <= 'f')) return 10 + c - 'a';
 	else if (('A' <= c) && (c <= 'F')) return 10 + c - 'A';
 	assert(0);
 }
 
-static bool try_parsehex(u64 *out, const char **str, usz max) {
+static bool try_parsehex(u8 *out, const char **str, usz max) {
 	*out = 0;
 
 	for (usz i = 0; i < max && ishex(**str); (*str)++, i++) {
@@ -26,7 +26,7 @@ static bool try_parsehex(u64 *out, const char **str, usz max) {
 }
 
 static bool try_parseguid(FMOD_GUID *out, const char *str) {
-	u64 d;
+	u8 d;
 	if (!try_parsehex(&d, &str, 8)) return false;
 	out->Data1 = d;
 	if (*str++ != '-') return false;

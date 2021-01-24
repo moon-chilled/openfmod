@@ -715,6 +715,8 @@ typedef struct FMOD_ASYNCREADINFO FMOD_ASYNCREADINFO;
 
 typedef FMOD_RESULT (*FMOD_FILE_ASYNCDONE_FUNC)(FMOD_ASYNCREADINFO *info, FMOD_RESULT result);
 
+typedef FMOD_RESULT (*FMOD_OUTPUT_LOG_FUNC)(FMOD_DEBUG_FLAGS level, const char *file, int line, const char *function, const char *string, ...);
+
 struct FMOD_ASYNCREADINFO {
 	void *handle;
 	unsigned int offset;
