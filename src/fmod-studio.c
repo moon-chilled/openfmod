@@ -1,31 +1,18 @@
 #include "openfmod.h"
 #include "openfmod-internal.h"
 
-atomic_bool is_gorilla_initialized = false;
 FILE *logfp = NULL;
-
-static void check_gorilla_initialized(void) {
-	if (!atomic_compare_exchange_strong(&is_gorilla_initialized, &(bool){false}, true)) {
-		// another thread beat us; fine
-		return;
-	}
-
-	// we won!
-	gc_initialize(NULL);
-}
 
 // just initialize right here
 // note that our version *is* threadsafe, unlike upstream's
 FMOD_RESULT FMOD_Studio_System_Create(FMOD_STUDIO_SYSTEM **system, unsigned int headerversion) {
-	check_gorilla_initialized();
-
 	FMOD_STUDIO_SYSTEM *ret = calloc(sizeof(FMOD_STUDIO_SYSTEM), 1);
 	if (!ret) return FMOD_ERR_INTERNAL;
-	ret->ga.mgr = gau_manager_create_custom(GaDeviceType_Default, GauThreadPolicy_Single, 4, 512);
+	ret->ga.mgr = gau_manager_create_custom(&(GaDeviceType){GaDeviceType_Default}, GauThreadPolicy_Single, &(gc_uint32){4}, &(gc_uint32){512});
 	if (!ret->ga.mgr) return FMOD_ERR_INTERNAL;
 	ret->ga.mixer = gau_manager_mixer(ret->ga.mgr);
 	if (!ret->ga.mixer) return FMOD_ERR_INTERNAL;
-	ret->ga.stream_mgr = gau_manager_streamManager(ret->ga.mgr);
+	ret->ga.stream_mgr = gau_manager_stream_manager(ret->ga.mgr);
 
 	*system = ret;
 	return FMOD_OK;
